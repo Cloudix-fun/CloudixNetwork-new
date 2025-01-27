@@ -50,7 +50,7 @@ public class CloudixCommand extends BaseCommand {
     @SubCommandInfo(name = "updater", permission = "network.updater")
     public boolean updateSubCommand(CommandSender sender, String label, String[] args) throws Exception {
         if (args.length == 0) {
-            Updater.performUpdate("CloudixNetwork-2.2.jar");
+            Updater.performUpdate("CloudixNetwork-spigot-2.3.jar");
             U.msg(sender, T.success("&#2FFD45Cloudix", "Установка обновления прошла успешно, рестарт через 5 сек."));
 
             S.delay(5, CNPluginSpigot.core(), () -> {
