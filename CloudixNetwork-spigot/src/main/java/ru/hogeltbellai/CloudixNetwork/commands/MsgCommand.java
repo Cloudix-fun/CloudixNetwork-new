@@ -42,19 +42,19 @@ public class MsgCommand extends BaseCommand {
             PacketAnswer answer = (PacketAnswer) response;
             switch (answer.status) {
                 case "NotFound":
-                    U.msg(sender, T.error("&#2FFD45Cloudix", "&cИгрок &f" + target + "&c не в сети!"));
+                    U.msg(sender, T.error("&#2FFD45Cloudix", "Игрок " + target + " не в сети!"));
                     return;
                 case "YouIgnoreAll":
                     U.msg(sender, T.error("&#2FFD45Cloudix", "Вы игнорируете все сообщения"));
                     return;
                 case "YouIgnorePlayer":
-                    U.msg(sender, T.error("&#2FFD45Cloudix", "Вы игнорируете игрока &f" + target));
+                    U.msg(sender, T.error("&#2FFD45Cloudix", "Вы игнорируете игрока " + target));
                     return;
                 case "RecIgnoreAll":
-                    U.msg(sender, T.error("&#2FFD45Cloudix", "Игрок &f" + target + "&c игнорирует все сообщения"));
+                    U.msg(sender, T.error("&#2FFD45Cloudix", "Игрок " + target + " игнорирует все сообщения"));
                     return;
                 case "RecIgnoreYou":
-                    U.msg(sender, T.error("&#2FFD45Cloudix", "Игрок &f" + target + "&c игнорирует вас"));
+                    U.msg(sender, T.error("&#2FFD45Cloudix", "Игрок " + target + " игнорирует вас"));
                     return;
                 case "Found":
                     U.msg(sender, "&e[&fВы &e-> " + target + "] &f" + message);

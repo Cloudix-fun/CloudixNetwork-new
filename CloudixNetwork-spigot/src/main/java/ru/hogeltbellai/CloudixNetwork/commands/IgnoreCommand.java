@@ -53,22 +53,22 @@ public class IgnoreCommand extends BaseCommand {
         }
     }
 
-    private void handleIgnorePlayer(Player player, int userId, String targetName) {
-        int targetId = CNPluginSpigot.core().getMysqlPlayer().getUserId(targetName);
-        if (targetId == -1) {
-            U.msg(player, T.error("&#2FFD45Cloudix", "Игрок " + targetName + " не найден"));
+    private void handleIgnorePlayer(Player player, int userId, String target) {
+        if(CNPluginSpigot.core().getMysqlPlayer().getUserId(target) == null) {
+            U.msg(player, T.error("&#2FFD45Cloudix", "Игрок " + target + " не найден в базе данных"));
             return;
         }
 
+        int targetId = CNPluginSpigot.core().getMysqlPlayer().getUserId(target);
         String key = "ignore_" + targetId;
         boolean isIgnoring = CNPluginSpigot.core().getMysqlPlayer().hasMeta(userId, key);
 
         if (isIgnoring) {
             CNPluginSpigot.core().getMysqlPlayer().deleteMeta(userId, key);
-            U.msg(player, T.success("&#2FFD45Cloudix", "Игрок " + targetName + " больше не игнорируется"));
+            U.msg(player, T.success("&#2FFD45Cloudix", "Игрок " + target + " больше не игнорируется"));
         } else {
             CNPluginSpigot.core().getMysqlPlayer().setMeta(userId, key, "true");
-            U.msg(player, T.success("&#2FFD45Cloudix", "Игрок " + targetName + " теперь игнорируется"));
+            U.msg(player, T.success("&#2FFD45Cloudix", "Игрок " + target + " теперь игнорируется"));
         }
     }
 }

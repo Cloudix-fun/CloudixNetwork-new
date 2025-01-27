@@ -1,0 +1,35 @@
+# Настройка базы данных
+mysql:
+  jdbcUrl: 'jdbc:mysql://localhost:3306/minecraft?useSSL=true'
+  username: 'root'
+  password: 'jPsaM.uUbHdn)1V9'
+  # Настройка пулов
+  poolMax: 10
+
+# Режим отладки
+debug: false
+
+# Настройка подключения к ядру
+core:
+  enabled: false
+  host: localhost
+  port: 25431
+
+# Обновлялка
+updater:
+  url: 'http://192.168.0.40/'
+
+# Настройка сообщений
+messages:
+  ban_title:
+    - ''
+    - '&#FBD708===================================='
+    - ''
+    - '&cВы были заблокированы на сервере!'
+    - '&cВас забанил: &e%sender%'
+    - '§cВремя: §e%time%'
+    - '§cПричина: §7%reason%'
+    - ''
+    - '§fПокупка разбана §7- §x§2§9§F§B§0§8cloudix.fun'
+    - ''
+    - '&#FBD708===================================='

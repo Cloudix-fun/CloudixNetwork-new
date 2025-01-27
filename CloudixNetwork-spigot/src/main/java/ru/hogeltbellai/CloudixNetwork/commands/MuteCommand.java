@@ -49,7 +49,7 @@ public class MuteCommand extends BaseCommand {
         }
 
         if (CPlayerManager.mutePlayer(target, duration, TimeUnit.MILLISECONDS, reason, sender.getName())) {
-            U.msg(sender, T.success("&#2FFD45Cloudix", "Вы успешно замутили &f" + target));
+            U.msg(sender, T.success("&#2FFD45Cloudix", "Вы успешно замутили " + target));
             if (targetPlayer != null) {
                 U.bcast("&e" + sender.getName() + "&c замутил игрока &e" + target + "&c на " + CPlayerManager.getRemainingMuteTime(target) + " по причине: &f" + CPlayerManager.getMuteReason(target));
             } else {

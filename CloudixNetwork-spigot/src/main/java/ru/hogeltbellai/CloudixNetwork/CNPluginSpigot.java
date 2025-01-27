@@ -7,6 +7,7 @@ import ru.hogeltbellai.CloudixNetwork.api.menu.MenuAPI;
 import ru.hogeltbellai.CloudixNetwork.commands.*;
 import ru.hogeltbellai.CloudixNetwork.core.BukkitPacketHandler;
 import ru.hogeltbellai.CloudixNetwork.impl.CPlayerManager;
+import ru.hogeltbellai.CloudixNetwork.impl.MysqlPlayer;
 import ru.hogeltbellai.CloudixNetwork.listener.PlayerListener;
 import ru.hogeltbellai.CloudixNetwork.mysql.Database;
 import ru.hogeltbellai.Core.connector.CoreConnector;
@@ -16,7 +17,8 @@ public final class CNPluginSpigot extends JavaPlugin {
     private static CNPluginSpigot instance;
     public Database database;
     public Configuration conf;
-    private CoreConnector coreConnector;
+    public CoreConnector coreConnector;
+    public MysqlPlayer mysqlPlayer;
 
     @Override
     public void onEnable() {
@@ -35,6 +37,8 @@ public final class CNPluginSpigot extends JavaPlugin {
 
         coreConnector.setMainHandler(new BukkitPacketHandler(this));
         coreConnector.connect();
+
+        mysqlPlayer = new MysqlPlayer(database);
 
         new CloudixCommand().register(this);
         new MsgCommand().register(this);
