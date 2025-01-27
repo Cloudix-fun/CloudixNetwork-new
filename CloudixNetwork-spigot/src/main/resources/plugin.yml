@@ -3,3 +3,16 @@ version: '${project.version}'
 main: ru.hogeltbellai.CloudixNetwork.CNPluginSpigot
 api-version: 1.16
 authors: [HogeltBellai]
+
+commands:
+  msg:
+    aliases: [tell, message, лс]
+  ban:
+    aliases: [бан]
+  mute:
+    aliases: [мут]
+  unban:
+    aliases: [разбан]
+  ignore:
+    aliases: [игнор]
+  cloudix:

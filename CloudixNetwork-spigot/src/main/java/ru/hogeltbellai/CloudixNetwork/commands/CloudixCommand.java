@@ -25,11 +25,6 @@ public class CloudixCommand extends BaseCommand {
     @Override
     protected boolean executeCommand(CommandSender sender, String label, String[] args) {
         if (args.length == 0) {
-            if (sender instanceof Player && !sender.hasPermission("network.admin")) {
-                U.msg(sender, T.warning("&#2FFD45Cloudix", "Куда ты лезешь, оно тебя сожрёт!"));
-                return true;
-            }
-
             U.msg(sender, T.system("&#2FFD45Cloudix", "Важная админская команда"));
             return false;
         }
