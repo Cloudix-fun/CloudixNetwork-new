@@ -25,7 +25,7 @@ public class BukkitPacketHandler extends PacketHandler {
     @Override
     public void handlePacketMessage(IoSession session, PacketMessage packet) {
         S.runSync(() -> {
-
+            Bukkit.broadcastMessage(packet.message);
         }, plugin);
     }
 

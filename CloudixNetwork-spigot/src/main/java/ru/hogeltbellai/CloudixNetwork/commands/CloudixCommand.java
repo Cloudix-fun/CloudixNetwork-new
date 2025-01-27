@@ -11,6 +11,7 @@ import ru.hogeltbellai.CloudixNetwork.updater.Updater;
 import ru.hogeltbellai.CloudixNetwork.utils.S;
 import ru.hogeltbellai.CloudixNetwork.utils.T;
 import ru.hogeltbellai.CloudixNetwork.utils.U;
+import ru.hogeltbellai.Core.packet.PacketMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +53,9 @@ public class CloudixCommand extends BaseCommand {
         if (args.length == 0) {
             Updater.performUpdate("CloudixNetwork-spigot-2.3.jar");
             U.msg(sender, T.success("&#2FFD45Cloudix", "Установка обновления прошла успешно, рестарт через 5 сек."));
+            CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketMessage(U.colored(T.success("&#2FFD45Cloudix", "Обновление! Рестарт через 10 сек."))));
 
-            S.delay(5, CNPluginSpigot.core(), () -> {
+            S.delay(10, CNPluginSpigot.core(), () -> {
                 Bukkit.getServer().spigot().restart();
             });
             return true;
