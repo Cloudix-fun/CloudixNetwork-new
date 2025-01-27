@@ -1,7 +1,7 @@
 package ru.hogeltbellai.CloudixNetwork.utils;
 
-import ru.hogeltbellai.cloudixnetwork.CNPlugin;
-import ru.hogeltbellai.cloudixnetwork.impl.CPlayerManager;
+import ru.hogeltbellai.CloudixNetwork.CNPluginSpigot;
+import ru.hogeltbellai.CloudixNetwork.impl.CPlayerManager;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class T {
     }
 
     public static String bantitle(String target) {
-        List<String> banMessage = CNPlugin.core().getConfig().getStringList("messages.ban_title");
+        List<String> banMessage = CNPluginSpigot.core().getConfig().getStringList("messages.ban_title");
 
         return banMessage.stream()
                 .map(message -> message

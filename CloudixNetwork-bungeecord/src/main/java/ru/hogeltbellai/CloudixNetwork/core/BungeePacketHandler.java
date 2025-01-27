@@ -38,13 +38,9 @@ public class BungeePacketHandler extends PacketHandler {
         String targetName = privateMessage.target;
 
         ProxiedPlayer bungeePlayer = ProxyServer.getInstance().getPlayer(targetName);
-        PacketAnswer packetAnswer;
 
         if (bungeePlayer == null) {
-            packetAnswer = new PacketAnswer("NotFound");
-            packetAnswer.pResponseId = packet.pResponseId;
-            privateMessage.pResponseId = packet.pResponseId;
-            session.write(packetAnswer);
+            CoreNetwork.sendPacketResponse(session, packet, new PacketAnswer("NotFound"));
             return;
         }
 
@@ -61,41 +57,26 @@ public class BungeePacketHandler extends PacketHandler {
         boolean isTargetIgnoringSender = CNPluginBungee.core().getMysqlPlayer().hasMeta(targetUserId, targetIgnoreKey);
 
         if (isSenderIgnoringAll) {
-            packetAnswer = new PacketAnswer("YouIgnoreAll");
-            packetAnswer.pResponseId = packet.pResponseId;
-            privateMessage.pResponseId = packet.pResponseId;
-            session.write(packetAnswer);
+            CoreNetwork.sendPacketResponse(session, packet, new PacketAnswer("YouIgnoreAll"));
             return;
         }
 
         if (isTargetIgnoringAll) {
-            packetAnswer = new PacketAnswer("RecIgnoreAll");
-            packetAnswer.pResponseId = packet.pResponseId;
-            privateMessage.pResponseId = packet.pResponseId;
-            session.write(packetAnswer);
+            CoreNetwork.sendPacketResponse(session, packet, new PacketAnswer("RecIgnoreAll"));
             return;
         }
 
         if (isSenderIgnoringTarget) {
-            packetAnswer = new PacketAnswer("YouIgnorePlayer");
-            packetAnswer.pResponseId = packet.pResponseId;
-            privateMessage.pResponseId = packet.pResponseId;
-            session.write(packetAnswer);
+            CoreNetwork.sendPacketResponse(session, packet, new PacketAnswer("YouIgnorePlayer"));
             return;
         }
 
         if (isTargetIgnoringSender) {
-            packetAnswer = new PacketAnswer("RecIgnoreYou");
-            packetAnswer.pResponseId = packet.pResponseId;
-            privateMessage.pResponseId = packet.pResponseId;
-            session.write(packetAnswer);
+            CoreNetwork.sendPacketResponse(session, packet, new PacketAnswer("RecIgnoreYou"));
             return;
         }
 
-        packetAnswer = new PacketAnswer("Found");
-        packetAnswer.pResponseId = packet.pResponseId;
-        privateMessage.pResponseId = packet.pResponseId;
-        session.write(packetAnswer);
+        CoreNetwork.sendPacketResponse(session, packet, new PacketAnswer("Found"));
         CoreNetwork.broadcast(privateMessage);
     }
 }
