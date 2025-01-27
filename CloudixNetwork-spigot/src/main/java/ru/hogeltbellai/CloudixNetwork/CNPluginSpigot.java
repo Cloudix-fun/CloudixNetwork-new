@@ -3,18 +3,20 @@ package ru.hogeltbellai.CloudixNetwork;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.hogeltbellai.CloudixNetwork.api.config.Configuration;
+import ru.hogeltbellai.CloudixNetwork.api.menu.MenuAPI;
+import ru.hogeltbellai.CloudixNetwork.commands.*;
 import ru.hogeltbellai.CloudixNetwork.core.BukkitPacketHandler;
-import ru.hogeltbellai.CloudixNetwork.impl.MysqlPlayer;
+import ru.hogeltbellai.CloudixNetwork.impl.CPlayerManager;
+import ru.hogeltbellai.CloudixNetwork.listener.PlayerListener;
 import ru.hogeltbellai.CloudixNetwork.mysql.Database;
 import ru.hogeltbellai.Core.connector.CoreConnector;
 
 @Getter
 public final class CNPluginSpigot extends JavaPlugin {
     private static CNPluginSpigot instance;
-    public CoreConnector coreConnector;
     public Database database;
     public Configuration conf;
-    public MysqlPlayer mysqlPlayer;
+    private CoreConnector coreConnector;
 
     @Override
     public void onEnable() {
@@ -34,7 +36,16 @@ public final class CNPluginSpigot extends JavaPlugin {
         coreConnector.setMainHandler(new BukkitPacketHandler(this));
         coreConnector.connect();
 
-        mysqlPlayer = new MysqlPlayer(database);
+        new CloudixCommand().register(this);
+        new MsgCommand().register(this);
+        new BanCommand().register(this);
+        new MuteCommand().register(this);
+        new IgnoreCommand().register(this);
+
+        getServer().getPluginManager().registerEvents(new MenuAPI(), this);
+        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+
+        CPlayerManager.startExpirationCheckTask();
     }
 
     @Override
