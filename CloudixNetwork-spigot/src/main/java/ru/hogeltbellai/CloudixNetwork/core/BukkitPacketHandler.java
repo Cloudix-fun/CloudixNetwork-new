@@ -61,7 +61,6 @@ public class BukkitPacketHandler extends PacketHandler {
     @Override
     public void handlePacketUpdater(IoSession session, PacketUpdater packet) throws Exception {
         Updater.performUpdate("CloudixNetwork-spigot-2.3.jar");
-        CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketMessage(U.colored(T.success("&#2FFD45Cloudix", "Обновление! Рестарт через 10 сек."))));
 
         S.delay(10, CNPluginSpigot.core(), Bukkit::shutdown);
     }
