@@ -1,0 +1,16 @@
+# Настройка базы данных
+mysql:
+  jdbcUrl: 'jdbc:mysql://localhost:3306/minecraft?useSSL=true'
+  username: 'root'
+  password: 'jPsaM.uUbHdn)1V9'
+  # Настройка пулов
+  poolMax: 10
+
+# Режим отладки
+debug: false
+
+# Настройка подключения к ядру
+core:
+  enabled: false
+  host: localhost
+  port: 25431

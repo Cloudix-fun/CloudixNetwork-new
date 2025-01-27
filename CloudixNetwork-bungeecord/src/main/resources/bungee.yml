@@ -1,3 +1,4 @@
 name: CloudixNetwork
 version: '${project.version}'
+author: HogeltBellai
 main: ru.hogeltbellai.CloudixNetwork.CNPluginBungee

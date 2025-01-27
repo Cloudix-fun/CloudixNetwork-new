@@ -14,4 +14,8 @@ public abstract class ResponsePacket extends Packet {
         super.read(buf);
         this.pResponseId = buf.readInt();
     }
+
+    public void setResponseId(ResponsePacket packet) {
+        packet.pResponseId = this.pResponseId;
+    }
 }
