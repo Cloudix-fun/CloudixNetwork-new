@@ -10,4 +10,5 @@ public class PacketHandler {
     public void handlePacketPrivateMessage(IoSession session, PacketPrivateMessage packet) {}
     public void handlePacketKickPlayer(IoSession session, PacketKickPlayer packet) {}
     public void handlePacketMutePlayer(IoSession session, PacketMutePlayer packet) {}
+    public void handlePacketUpdater(IoSession session, PacketUpdater packet) throws Exception {}
 }

@@ -5,14 +5,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import ru.hogeltbellai.CloudixNetwork.CNPluginSpigot;
 import ru.hogeltbellai.CloudixNetwork.impl.CPlayerManager;
+import ru.hogeltbellai.CloudixNetwork.updater.Updater;
 import ru.hogeltbellai.CloudixNetwork.utils.S;
 import ru.hogeltbellai.CloudixNetwork.utils.T;
 import ru.hogeltbellai.CloudixNetwork.utils.U;
 import ru.hogeltbellai.Core.PacketHandler;
-import ru.hogeltbellai.Core.packet.PacketKickPlayer;
-import ru.hogeltbellai.Core.packet.PacketMessage;
-import ru.hogeltbellai.Core.packet.PacketMutePlayer;
-import ru.hogeltbellai.Core.packet.PacketPrivateMessage;
+import ru.hogeltbellai.Core.packet.*;
 
 public class BukkitPacketHandler extends PacketHandler {
 
@@ -58,5 +56,13 @@ public class BukkitPacketHandler extends PacketHandler {
         if(player != null) {
             U.msg(player, "&e[" + packet.sender + " < - &fВы&e] &f" + packet.message);
         }
+    }
+
+    @Override
+    public void handlePacketUpdater(IoSession session, PacketUpdater packet) throws Exception {
+        Updater.performUpdate("CloudixNetwork-spigot-2.3.jar");
+        CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketMessage(U.colored(T.success("&#2FFD45Cloudix", "Обновление! Рестарт через 10 сек."))));
+
+        S.delay(10, CNPluginSpigot.core(), Bukkit::shutdown);
     }
 }

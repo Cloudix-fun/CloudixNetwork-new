@@ -16,6 +16,11 @@ public class BungeePacketHandler extends PacketHandler {
     }
 
     @Override
+    public void handlePacketUpdater(IoSession session, PacketUpdater packet) {
+        CoreNetwork.broadcast(packet);
+    }
+
+    @Override
     public void handlePacketMessage(IoSession session, PacketMessage packet) {
         CoreNetwork.broadcast(packet);
     }

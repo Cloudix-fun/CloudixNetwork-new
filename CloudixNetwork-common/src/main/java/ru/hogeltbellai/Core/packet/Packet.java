@@ -18,6 +18,7 @@ public abstract class Packet {
         registerPacket(3, PacketPrivateMessage.class);
         registerPacket(4, PacketKickPlayer.class);
         registerPacket(5, PacketMutePlayer.class);
+        registerPacket(6, PacketUpdater.class);
     }
 
     private final int id;
@@ -84,7 +85,7 @@ public abstract class Packet {
 
     public abstract void read0(Buf in) throws Exception;
 
-    protected abstract void process0(IoSession session, PacketHandler handler);
+    protected abstract void process0(IoSession session, PacketHandler handler) throws Exception;
 
     public static class PacketData {
         private final Class<? extends Packet> clazz;
