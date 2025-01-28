@@ -30,11 +30,11 @@ public class CloudixCommand extends BaseCommand {
         if (args.length == 0) {
             Runtime runtime = Runtime.getRuntime();
             List<String> lines = new ArrayList<>();
-            lines.add("&e------------ &fСтатистика &e------------");
-            lines.add("&eRAM память: &f" + ((runtime.totalMemory() - runtime.freeMemory()) / 1024L / 1024L) + " MB / " + (runtime.totalMemory() / 1024L / 1024L) + " MB up to " + (runtime.maxMemory() / 1024L / 1024L) + " MB");
-            lines.add("&eСоединение с БД: &f" + (CNPluginSpigot.core().getDatabase().isConnected() ? "&aактивно" : "&cразорвано"));
-            lines.add("&eЗапросов к БД: &f" + (CNPluginSpigot.core().getDatabase().getQueryCount()));
-            lines.add("&eСоединение с Mina: &f" + (CNPluginSpigot.core().getCoreConnector().isConnected() ? "&aактивно" : "&cразорвано"));
+            lines.add("&7------------ &aСтатистика &7------------");
+            lines.add("&fRAM память: &f" + ((runtime.totalMemory() - runtime.freeMemory()) / 1024L / 1024L) + " MB / " + (runtime.totalMemory() / 1024L / 1024L) + " MB up to " + (runtime.maxMemory() / 1024L / 1024L) + " MB");
+            lines.add("&fСоединение с БД: &f" + (CNPluginSpigot.core().getDatabase().isConnected() ? "&aактивно" : "&cразорвано"));
+            lines.add("&fЗапросов к БД: &f" + (CNPluginSpigot.core().getDatabase().getQueryCount()));
+            lines.add("&fСоединение с Mina: &f" + (CNPluginSpigot.core().getCoreConnector().isConnected() ? "&aактивно" : "&cразорвано"));
             U.msg(sender, lines);
             return true;
         }
