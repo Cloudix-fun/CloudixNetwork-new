@@ -46,9 +46,11 @@ public final class CNPluginSpigot extends JavaPlugin {
         new MuteCommand().register(this);
         new IgnoreCommand().register(this);
         new SpeedCommand().register(this);
+        new StpCommand().register(this);
 
         getServer().getPluginManager().registerEvents(new MenuAPI(), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         CPlayerManager.startExpirationCheckTask();
     }

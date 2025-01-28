@@ -4,36 +4,36 @@ import org.apache.mina.core.session.IoSession;
 import ru.hogeltbellai.Core.Buf;
 import ru.hogeltbellai.Core.PacketHandler;
 
-public class PacketGetPlayerInfo extends ResponsePacket {
+public class PacketPlayerInfo extends ResponsePacket {
     public String playerName;
-    public int queryFlags;
+    public String serverName;
 
-    public PacketGetPlayerInfo(String playerName, int queryFlags) {
+    public PacketPlayerInfo(String playerName, String serverName) {
         this.playerName = playerName;
-        this.queryFlags = queryFlags;
+        this.serverName = serverName;
     }
 
-    public PacketGetPlayerInfo() { }
+    public PacketPlayerInfo() { }
 
     @Override
     public void read0(Buf in) {
         playerName = in.readString();
-        queryFlags = in.readInt();
+        serverName = in.readString();
     }
 
     @Override
     public void write0(Buf out) {
         out.writeString(playerName);
-        out.writeInt(queryFlags);
+        out.writeString(serverName != null ? serverName : "");
     }
 
     @Override
     protected void process0(IoSession session, PacketHandler handler) throws Exception {
-        handler.handlePacketGetPlayerInfo(session, this);
+        handler.handlePacketPlayerInfo(session, this);
     }
 
     @Override
     public String toString() {
-        return "PacketGetPlayerInfo{playerName='" + playerName + "', queryFlags=" + queryFlags + "}";
+        return "PacketPlayerInfo{playerName='" + playerName + "', serverName='" + serverName + "'}";
     }
 }

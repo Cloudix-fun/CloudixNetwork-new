@@ -17,4 +17,6 @@ commands:
     aliases: [игнор]
   speed:
     aliases: [скорость]
+  stp:
+    aliases: [стп]
   cloudix:

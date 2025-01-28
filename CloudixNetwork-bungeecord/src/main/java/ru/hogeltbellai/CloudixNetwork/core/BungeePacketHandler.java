@@ -84,4 +84,15 @@ public class BungeePacketHandler extends PacketHandler {
         CoreNetwork.sendPacketResponse(session, packet, new PacketAnswer("Found"));
         CoreNetwork.broadcast(privateMessage);
     }
+
+    @Override
+    public void handlePacketGetPlayerInfo(IoSession session, PacketGetPlayerInfo packet) throws Exception {
+        ProxiedPlayer player = ProxyServer.getInstance().getPlayer(packet.playerName);
+        if (player == null) {
+            CoreNetwork.sendPacketResponse(session, packet, new PacketPlayerInfo(packet.playerName, null));
+            return;
+        }
+        String serverName = player.getServer() != null ? player.getServer().getInfo().getName() : null;
+        CoreNetwork.sendPacketResponse(session, packet, new PacketPlayerInfo(packet.playerName, serverName));
+    }
 }

@@ -19,6 +19,8 @@ public abstract class Packet {
         registerPacket(4, PacketKickPlayer.class);
         registerPacket(5, PacketMutePlayer.class);
         registerPacket(6, PacketUpdater.class);
+        registerPacket(7, PacketGetPlayerInfo.class);
+        registerPacket(8, PacketPlayerInfo.class);
     }
 
     private final int id;
