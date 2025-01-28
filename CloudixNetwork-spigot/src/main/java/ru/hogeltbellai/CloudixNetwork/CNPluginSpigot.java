@@ -3,6 +3,7 @@ package ru.hogeltbellai.CloudixNetwork;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.hogeltbellai.CloudixNetwork.api.config.Configuration;
+import ru.hogeltbellai.CloudixNetwork.api.menu.ItemsAPI;
 import ru.hogeltbellai.CloudixNetwork.api.menu.MenuAPI;
 import ru.hogeltbellai.CloudixNetwork.commands.*;
 import ru.hogeltbellai.CloudixNetwork.core.BukkitPacketHandler;
@@ -48,6 +49,7 @@ public final class CNPluginSpigot extends JavaPlugin {
         new SpeedCommand().register(this);
         new StpCommand().register(this);
 
+        getServer().getPluginManager().registerEvents(new ItemsAPI.InteractionItemListener(), this);
         getServer().getPluginManager().registerEvents(new MenuAPI(), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
