@@ -16,7 +16,7 @@ public class T {
     }
 
     public static String error(String title, String text) {
-        return system(title, "&#EF2B2B" + text);
+        return system(title, "&e" + text);
     }
 
     public static String success(String title, String text) {

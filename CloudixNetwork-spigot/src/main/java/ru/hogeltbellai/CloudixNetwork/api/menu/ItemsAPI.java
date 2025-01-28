@@ -9,11 +9,9 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import ru.hogeltbellai.CloudixNetwork.utils.U;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.lang.reflect.Field;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -40,7 +38,7 @@ public class ItemsAPI {
         public Builder displayName(String displayName) {
             ItemMeta meta = itemsAPI.item.getItemMeta();
             assert meta != null;
-            meta.setDisplayName(displayName);
+            meta.setDisplayName(U.colored(displayName));
             itemsAPI.item.setItemMeta(meta);
             return this;
         }
@@ -48,7 +46,7 @@ public class ItemsAPI {
         public Builder lore(String... lore) {
             ItemMeta meta = itemsAPI.item.getItemMeta();
             assert meta != null;
-            meta.setLore(Arrays.asList(lore));
+            meta.setLore(Arrays.asList(U.colored(lore)));
             itemsAPI.item.setItemMeta(meta);
             return this;
         }
@@ -61,36 +59,39 @@ public class ItemsAPI {
             return this;
         }
 
-        public Builder headPlayer(String playerName) {
+        public Builder headPlayerValue(String value) {
             SkullMeta meta = (SkullMeta) itemsAPI.item.getItemMeta();
             assert meta != null;
 
-            try {
-                UUID playerUUID = Bukkit.getOfflinePlayer(playerName).getUniqueId();
+            setSkullTexture(meta, value);
 
-                String skinUrl = getPlayerSkinUrl(playerUUID);
+            itemsAPI.item.setItemMeta(meta);
+            return this;
+        }
 
-                if (skinUrl != null) {
-                    GameProfile profile = new GameProfile(playerUUID, playerName);
-                    profile.getProperties().put("textures", new Property("textures", skinUrl));
+        public Builder headPlayerName(String playerName) {
+            SkullMeta meta = (SkullMeta) itemsAPI.item.getItemMeta();
+            assert meta != null;
 
-                    Field profileField = meta.getClass().getDeclaredField("profile");
-                    profileField.setAccessible(true);
-                    profileField.set(meta, profile);
-                } else {
-                    GameProfile profile = new GameProfile(playerUUID, playerName);
-                    profile.getProperties().put("textures", new Property("textures", getDefaultSkin()));
-
-                    Field profileField = meta.getClass().getDeclaredField("profile");
-                    profileField.setAccessible(true);
-                    profileField.set(meta, profile);
-                }
-
-                itemsAPI.item.setItemMeta(meta);
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (Bukkit.getPlayer(playerName) != null) {
+                String texture = getPlayerSkinBase64(playerName);
+                setSkullTexture(meta, texture);
+            } else {
+                setSkullTexture(meta, getBase64TextureOffline());
             }
 
+            itemsAPI.item.setItemMeta(meta);
+            return this;
+        }
+
+        public Builder headPlayerOffline(String offlinePlayerName) {
+            SkullMeta meta = (SkullMeta) itemsAPI.item.getItemMeta();
+            assert meta != null;
+
+            String texture = getOfflineSkinBase64(offlinePlayerName);
+            setSkullTexture(meta, texture);
+
+            itemsAPI.item.setItemMeta(meta);
             return this;
         }
 
@@ -98,29 +99,29 @@ public class ItemsAPI {
             return itemsAPI;
         }
 
-        private String getPlayerSkinUrl(UUID uuid) {
+        private void setSkullTexture(SkullMeta meta, String texture) {
+            GameProfile profile = new GameProfile(Bukkit.getPlayer(texture) != null ? Bukkit.getPlayer(texture).getUniqueId() : new UUID(0, 0), texture);
+            profile.getProperties().put("textures", new Property("textures", texture));
+
             try {
-                URL url = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid.toString().replace("-", ""));
-                BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-
-                String jsonResponse = response.toString();
-                int start = jsonResponse.indexOf("\"value\":") + 8;
-                int end = jsonResponse.indexOf("\"", start);
-                String texture = jsonResponse.substring(start, end);
-
-                return texture;
+                Field profileField = meta.getClass().getDeclaredField("profile");
+                profileField.setAccessible(true);
+                profileField.set(meta, profile);
             } catch (Exception e) {
-                return null;
+                e.printStackTrace();
             }
         }
 
-        private String getDefaultSkin() {
-            return "d41d8cd98f00b204e9800998ecf8427e";
+        private String getPlayerSkinBase64(String playerName) {
+            return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjIyNGUxMTVlY2NhY2U4YmM1M2Q5N2RjZjg2M2QxNDRhNWMzOWZkMTEyM2FmZWMyNmE5ZDhmN2ZlZmQ2YWE1OSJ9fX0=";
+        }
+
+        private String getOfflineSkinBase64(String playerName) {
+            return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjIyNGUxMTVlY2NhY2U4YmM1M2Q5N2RjZjg2M2QxNDRhNWMzOWZkMTEyM2FmZWMyNmE5ZDhmN2ZlZmQ2YWE1OSJ9fX0=";
+        }
+
+        private String getBase64TextureOffline() {
+            return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjIyNGUxMTVlY2NhY2U4YmM1M2Q5N2RjZjg2M2QxNDRhNWMzOWZkMTEyM2FmZWMyNmE5ZDhmN2ZlZmQ2YWE1OSJ9fX0=";
         }
     }
 }

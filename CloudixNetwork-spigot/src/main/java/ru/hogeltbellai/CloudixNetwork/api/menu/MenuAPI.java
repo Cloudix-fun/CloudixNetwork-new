@@ -23,7 +23,7 @@ public class MenuAPI implements Listener {
     private static final Map<ItemStack, ItemAction> itemActions = new HashMap<>();
     private static final Map<UUID, Long> lastClickTimes = new HashMap<>();
 
-    private static final long CLICK_DELAY = 2000;
+    private static final long CLICK_DELAY = 1000;
     private static final Set<Inventory> customInventories = Collections.newSetFromMap(new WeakHashMap<>());
 
     public static void createMenu(Player player, String title, int size) {
@@ -115,8 +115,6 @@ public class MenuAPI implements Listener {
 
                         entry.getValue().run(player);
                         event.setCancelled(true);
-                    } else {
-                        U.msg(player, T.warning("&#2FFD45Cloudix", "Подождите 2 секунды! Слишком быстро..."));
                     }
                     break;
                 }
