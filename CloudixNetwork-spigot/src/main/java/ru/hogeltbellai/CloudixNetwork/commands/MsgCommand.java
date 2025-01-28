@@ -17,7 +17,7 @@ public class MsgCommand extends BaseCommand {
     @Override
     protected boolean executeCommand(CommandSender sender, String label, String[] args) {
         if (args.length < 2) {
-            U.msg(sender, T.error("&#08FB36&lCLOUDIX","Используйте - /" + label + " [игрок] [сообщение]"));
+            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX","Используйте - /" + label + " [игрок] [сообщение]"));
             return true;
         }
 
@@ -39,25 +39,25 @@ public class MsgCommand extends BaseCommand {
             PacketAnswer answer = (PacketAnswer) response;
             switch (answer.status) {
                 case "NotFound":
-                    U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Игрок " + target + " не в сети!"));
+                    U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Игрок " + target + " не в сети!"));
                     return;
                 case "YouIgnoreAll":
-                    U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Вы игнорируете все сообщения"));
+                    U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Вы игнорируете все сообщения"));
                     return;
                 case "YouIgnorePlayer":
-                    U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Вы игнорируете игрока " + target));
+                    U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Вы игнорируете игрока " + target));
                     return;
                 case "RecIgnoreAll":
-                    U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Игрок " + target + " игнорирует все сообщения"));
+                    U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Игрок " + target + " игнорирует все сообщения"));
                     return;
                 case "RecIgnoreYou":
-                    U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Игрок " + target + " игнорирует вас"));
+                    U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Игрок " + target + " игнорирует вас"));
                     return;
                 case "Found":
-                    U.msg(sender, "&e[&fВы &e-> " + target + "] &f" + message);
+                    U.msg(sender, "&7[&fВы &7-> " + target + "] &f" + message);
                     return;
                 default:
-                    U.msg(sender, T.error("&#08FB36&lCLOUDIX", "&cПроизошла ошибка, не удалось отправить сообщение"));
+                    U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "&cПроизошла ошибка, не удалось отправить сообщение"));
                     return;
             }
         }, 200L);

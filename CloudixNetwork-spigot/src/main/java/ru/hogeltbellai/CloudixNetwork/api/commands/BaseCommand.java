@@ -66,7 +66,7 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
             if (subCommand != null) {
                 if (subCommand.permission != null && !subCommand.permission.isEmpty() && sender instanceof org.bukkit.entity.Player &&
                         !sender.hasPermission(subCommand.permission)) {
-                    U.msg(sender, T.error("&#08FB36&lCLOUDIX", "У вас нет прав"));
+                    U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "У вас нет прав"));
                     return true;
                 }
 
@@ -83,7 +83,7 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (permission != null && !permission.isEmpty() && sender instanceof org.bukkit.entity.Player && !sender.hasPermission(permission)) {
-            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "У вас нет прав"));
+            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "У вас нет прав"));
             return true;
         }
 
@@ -104,7 +104,6 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
         if (commandInfo != null && args.length > 0) {
             int argIndex = args.length - 1;
 
-            // Автодополнение для основных команд
             for (int playerTabIndex : commandInfo.playerTabComplete()) {
                 if (argIndex == playerTabIndex) {
                     List<String> players = new ArrayList<>();
@@ -114,7 +113,6 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
             }
         }
 
-        // Автодополнение для подкоманд
         if (args.length == 1) {
             List<String> suggestions = new ArrayList<>(subCommands.keySet());
             suggestions.removeIf(s -> subCommands.get(s).permission != null &&

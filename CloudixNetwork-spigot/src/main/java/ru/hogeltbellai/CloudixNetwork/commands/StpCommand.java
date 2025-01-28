@@ -21,13 +21,13 @@ public class StpCommand extends BaseCommand {
     @Override
     protected boolean executeCommand(CommandSender sender, String label, String[] args) {
         if (args.length == 0) {
-            U.msg(sender, T.error("&#08FB36&lCLOUDIX","Используйте - /" + label + " [игрок]"));
+            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX","Используйте - /" + label + " [игрок]"));
             return true;
         }
 
         String target = args[0];
         if (target.length() > 20) {
-            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Некорректный ник"));
+            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Некорректный ник"));
             return true;
         }
 
@@ -36,10 +36,10 @@ public class StpCommand extends BaseCommand {
         CNPluginSpigot.core().getCoreConnector().sendRequest(request, response -> {
             PacketPlayerInfo playerInfo = (PacketPlayerInfo) response;
             if (playerInfo.serverName != null && !playerInfo.serverName.isEmpty()) {
-                U.msg(sender, T.system("&#08FB36&lCLOUDIX", "Вы телепортировались на сервер к " + target));
+                U.msg(sender, T.system("&#B6DEA1&lCLOUDIX", "Вы телепортировались на сервер к " + target));
                 connectToServer((Player) sender, playerInfo.serverName);
             } else {
-                U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Игрок " + target + " не в сети!"));
+                U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Игрок " + target + " не в сети!"));
             }
         }, 200L);
         return true;

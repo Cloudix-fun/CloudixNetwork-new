@@ -20,19 +20,19 @@ public class BanCommand extends BaseCommand {
     @Override
     protected boolean executeCommand(CommandSender sender, String label, String[] args) {
         if (args.length < 2) {
-            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Используйте - /" + label + " [игрок] [время] [причина]"));
+            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Используйте - /" + label + " [игрок] [время] [причина]"));
             return true;
         }
 
         String target = args[0];
         if (target.length() > 20) {
-            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Некорректный ник"));
+            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Некорректный ник"));
             return true;
         }
 
         long duration = CPlayerManager.parseDuration(args[1]);
         if (duration <= 0) {
-            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Некорректное время"));
+            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Некорректное время"));
             return true;
         }
 
@@ -48,7 +48,7 @@ public class BanCommand extends BaseCommand {
                 } else {
                     CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketKickPlayer(PacketKickPlayer.KickType.BAN, target, sender.getName(), reason));
                 }
-                U.msg(sender, T.success("&#08FB36&lCLOUDIX", "Вы успешно забанили " + target));
+                U.msg(sender, T.success("&#B6DEA1&lCLOUDIX", "Вы успешно забанили " + target));
             }
         }
         return false;

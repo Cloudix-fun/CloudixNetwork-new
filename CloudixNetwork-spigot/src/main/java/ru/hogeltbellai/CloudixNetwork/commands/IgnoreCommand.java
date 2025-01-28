@@ -18,14 +18,14 @@ public class IgnoreCommand extends BaseCommand {
         int userId = CNPluginSpigot.core().getMysqlPlayer().getUserId(player.getName());
 
         if (args.length == 0) {
-            U.msg(sender, T.error("&#08FB36&lCLOUDIX","Используйте - /" + label + " [игрок]"));
+            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX","Используйте - /" + label + " [игрок]"));
             return true;
         }
 
         String target = args[0];
 
         if(target.equalsIgnoreCase(sender.getName())) {
-            U.msg(player, T.error("&#08FB36&lCLOUDIX", "Нельзя игнорировать себя-же"));
+            U.msg(player, T.error("&#B6DEA1&lCLOUDIX", "Нельзя игнорировать себя-же"));
             return true;
         }
 
@@ -42,16 +42,16 @@ public class IgnoreCommand extends BaseCommand {
         boolean isIgnoringAll = Boolean.parseBoolean(CNPluginSpigot.core().getMysqlPlayer().getMeta(userId, IGNORE_ALL_KEY));
         if (isIgnoringAll) {
             CNPluginSpigot.core().getMysqlPlayer().setMeta(userId, IGNORE_ALL_KEY, "false");
-            U.msg(player, T.success("&#08FB36&lCLOUDIX", "Вы включили личные сообщения"));
+            U.msg(player, T.success("&#B6DEA1&lCLOUDIX", "Вы включили личные сообщения"));
         } else {
             CNPluginSpigot.core().getMysqlPlayer().setMeta(userId, IGNORE_ALL_KEY, "true");
-            U.msg(player, T.success("&#08FB36&lCLOUDIX", "Вы выключили личные сообщения"));
+            U.msg(player, T.success("&#B6DEA1&lCLOUDIX", "Вы выключили личные сообщения"));
         }
     }
 
     private void handleIgnorePlayer(Player player, int userId, String target) {
         if(CNPluginSpigot.core().getMysqlPlayer().getUserId(target) == null) {
-            U.msg(player, T.error("&#08FB36&lCLOUDIX", "Игрок " + target + " не найден в базе данных"));
+            U.msg(player, T.error("&#B6DEA1&lCLOUDIX", "Игрок " + target + " не найден в базе данных"));
             return;
         }
 
@@ -61,10 +61,10 @@ public class IgnoreCommand extends BaseCommand {
 
         if (isIgnoring) {
             CNPluginSpigot.core().getMysqlPlayer().deleteMeta(userId, key);
-            U.msg(player, T.success("&#2FFD45Cloudix", "Игрок " + target + " больше не игнорируется"));
+            U.msg(player, T.success("&#B6DEA1&lCLOUDIX", "Игрок " + target + " больше не игнорируется"));
         } else {
             CNPluginSpigot.core().getMysqlPlayer().setMeta(userId, key, "true");
-            U.msg(player, T.success("&#2FFD45Cloudix", "Игрок " + target + " теперь игнорируется"));
+            U.msg(player, T.success("&#B6DEA1&lCLOUDIX", "Игрок " + target + " теперь игнорируется"));
         }
     }
 }
