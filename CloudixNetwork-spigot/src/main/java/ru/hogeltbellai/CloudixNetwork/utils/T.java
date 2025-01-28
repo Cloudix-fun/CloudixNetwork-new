@@ -8,19 +8,19 @@ import java.util.List;
 public class T {
 
     public static String system(String title, String text) {
-        return "&7[" + title + "&7] &f" + text;
+        return "&#B5B5B5[" + title + "&#B5B5B5] &f" + text;
     }
 
     public static String warning(String title, String text) {
-        return system(title, "&6" + text);
+        return system(title, "&#EF822B" + text);
     }
 
     public static String error(String title, String text) {
-        return system(title, "&c" + text);
+        return system(title, "&#EF2B2B" + text);
     }
 
     public static String success(String title, String text) {
-        return system(title, "&#29F52F" + text);
+        return system(title, "&#38E536" + text);
     }
 
     public static String bantitle(String target) {

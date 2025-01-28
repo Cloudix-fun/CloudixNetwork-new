@@ -45,6 +45,7 @@ public final class CNPluginSpigot extends JavaPlugin {
         new BanCommand().register(this);
         new MuteCommand().register(this);
         new IgnoreCommand().register(this);
+        new SpeedCommand().register(this);
 
         getServer().getPluginManager().registerEvents(new MenuAPI(), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);

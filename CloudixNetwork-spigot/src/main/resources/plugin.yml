@@ -15,4 +15,6 @@ commands:
     aliases: [разбан]
   ignore:
     aliases: [игнор]
+  speed:
+    aliases: [скорость]
   cloudix:

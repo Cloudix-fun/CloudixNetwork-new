@@ -17,26 +17,22 @@ import java.util.concurrent.TimeUnit;
 @CommandInfo(name = "mute", permission = "network.mute", playerTabComplete = {0})
 public class MuteCommand extends BaseCommand {
 
-    public MuteCommand() {
-        super();
-    }
-
     @Override
     protected boolean executeCommand(CommandSender sender, String label, String[] args) {
         if (args.length < 2) {
-            U.msg(sender, T.error("&#2FFD45Cloudix", "Используйте &7- &e/" + label + " [игрок] [время] [причина]"));
+            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Используйте - /" + label + " [игрок] [время] [причина]"));
             return true;
         }
 
         String target = args[0];
         if (target.length() > 20) {
-            U.msg(sender, T.error("&#2FFD45Cloudix", "Ник игрока не может быть больше 20 символов"));
+            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Некорректный ник"));
             return true;
         }
 
         long duration = CPlayerManager.parseDuration(args[1]);
         if (duration <= 0) {
-            U.msg(sender, T.error("&#2FFD45Cloudix", "Некорректное число"));
+            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Некорректное время"));
             return true;
         }
 
@@ -44,14 +40,15 @@ public class MuteCommand extends BaseCommand {
 
         Player targetPlayer = Bukkit.getPlayer(target);
         if (CPlayerManager.isMuted(target)) {
-            U.msg(sender, T.error("&#2FFD45Cloudix", "Игрок уже замучен"));
+            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Игрок уже замучен"));
             return true;
         }
 
         if (CPlayerManager.mutePlayer(target, duration, TimeUnit.MILLISECONDS, reason, sender.getName())) {
-            U.msg(sender, T.success("&#2FFD45Cloudix", "Вы успешно замутили " + target));
+            U.msg(sender, T.success("&#08FB36&lCLOUDIX", "Вы успешно замутили " + target));
             if (targetPlayer != null) {
-                U.bcast("&e" + sender.getName() + "&c замутил игрока &e" + target + "&c на " + CPlayerManager.getRemainingMuteTime(target) + " по причине: &f" + CPlayerManager.getMuteReason(target));
+                U.bcast("&#AE1313&lНАКАЗАНИЕ&#AE1313:");
+                U.bcast("&f" + sender.getName() + " замутил игрока " + target + " на " + CPlayerManager.getRemainingMuteTime(target) + " по причине: &c" + CPlayerManager.getMuteReason(target));
             } else {
                 CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketMutePlayer(target, sender.getName(), reason));
             }

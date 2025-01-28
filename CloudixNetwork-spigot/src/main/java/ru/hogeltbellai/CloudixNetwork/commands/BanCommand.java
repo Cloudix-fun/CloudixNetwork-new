@@ -17,26 +17,22 @@ import java.util.concurrent.TimeUnit;
 @CommandInfo(name = "ban", permission = "network.ban", playerTabComplete = {0})
 public class BanCommand extends BaseCommand {
 
-    public BanCommand() {
-        super();
-    }
-
     @Override
     protected boolean executeCommand(CommandSender sender, String label, String[] args) {
         if (args.length < 2) {
-            U.msg(sender, T.error("&#2FFD45Cloudix", "Используйте &7- &e/" + label + " [игрок] [время] [причина]"));
+            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Используйте - /" + label + " [игрок] [время] [причина]"));
             return true;
         }
 
         String target = args[0];
         if (target.length() > 20) {
-            U.msg(sender, T.error("&#2FFD45Cloudix", "Ник игрока не может быть больше 20 символов"));
+            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Некорректный ник"));
             return true;
         }
 
         long duration = CPlayerManager.parseDuration(args[1]);
         if (duration <= 0) {
-            U.msg(sender, T.error("&#2FFD45Cloudix", "Некорректное число"));
+            U.msg(sender, T.error("&#08FB36&lCLOUDIX", "Некорректное время"));
             return true;
         }
 
@@ -46,12 +42,13 @@ public class BanCommand extends BaseCommand {
         if (!CPlayerManager.isBanned(target)) {
             if (CPlayerManager.banPlayer(target, duration, TimeUnit.MILLISECONDS, reason, sender.getName())) {
                 if (targetPlayer != null) {
-                    U.bcast("&e" + sender.getName() + "&c забанил игрока &e" + targetPlayer.getName() + "&c на " + CPlayerManager.getRemainingBanTime(targetPlayer.getName()) + " по причине: &f" + CPlayerManager.getBanReason(targetPlayer.getName()));
+                    U.bcast("&#AE1313&lНАКАЗАНИЕ&#AE1313:");
+                    U.bcast("&f" + sender.getName() + " забанил игрока " + targetPlayer.getName() + " на " + CPlayerManager.getRemainingBanTime(targetPlayer.getName()) + " по причине: &c" + CPlayerManager.getBanReason(targetPlayer.getName()));
                     targetPlayer.kickPlayer(U.colored(T.bantitle(target)));
                 } else {
                     CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketKickPlayer(PacketKickPlayer.KickType.BAN, target, sender.getName(), reason));
                 }
-                U.msg(sender, T.success("&#2FFD45Cloudix", "Вы успешно забанили &f" + target));
+                U.msg(sender, T.success("&#08FB36&lCLOUDIX", "Вы успешно забанили " + target));
             }
         }
         return false;
