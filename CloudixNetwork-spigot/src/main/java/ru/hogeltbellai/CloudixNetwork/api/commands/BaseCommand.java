@@ -83,7 +83,7 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (permission != null && !permission.isEmpty() && sender instanceof org.bukkit.entity.Player && !sender.hasPermission(permission)) {
-            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "У вас нет прав"));
+            U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "У вас нет прав"));
             return true;
         }
 
