@@ -54,7 +54,7 @@ public class BukkitPacketHandler extends PacketHandler {
     public void handlePacketPrivateMessage(IoSession session, PacketPrivateMessage packet) {
         Player player = Bukkit.getPlayerExact(packet.target);
         if(player != null) {
-            U.msg(player, "&#FDB85C&lЛС &7" + packet.sender + " -> &fВы&7: &f" + packet.message);
+            U.msg(player, "&f&lЛС &7" + packet.sender + "&#B5B5B5 ➡ &fВы&7: &f" + packet.message);
         }
     }
 
