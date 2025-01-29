@@ -1,6 +1,9 @@
 package ru.hogeltbellai.CloudixNetwork;
 
 import lombok.Getter;
+import net.luckperms.api.LuckPerms;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.hogeltbellai.CloudixNetwork.api.config.Configuration;
 import ru.hogeltbellai.CloudixNetwork.api.menu.ItemsAPI;
@@ -21,9 +24,13 @@ public final class CNPluginSpigot extends JavaPlugin {
     public CoreConnector coreConnector;
     public MysqlPlayer mysqlPlayer;
 
+    public LuckPerms luckPermsAPI;
+
     @Override
     public void onEnable() {
         instance = this;
+
+        getLuckPerms();
 
         new Init(this).initConfig();
         new Init(this).initDatabase();
@@ -68,5 +75,12 @@ public final class CNPluginSpigot extends JavaPlugin {
 
     public static CNPluginSpigot core() {
         return instance;
+    }
+
+    private void getLuckPerms() {
+        RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+        if (provider != null) {
+            luckPermsAPI = provider.getProvider();
+        }
     }
 }
