@@ -54,7 +54,7 @@ public class MsgCommand extends BaseCommand {
                     U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Игрок " + target + " игнорирует вас"));
                     return;
                 case "Found":
-                    U.msg(sender, "&f&lЛС &fВы &7-> " + target + "&#B5B5B5 ➡" + message);
+                    U.msg(sender, "&f&lЛС &fВы&#B5B5B5 ➡ " + target + ": &f" + message);
                     return;
                 default:
                     U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "&cПроизошла ошибка, не удалось отправить сообщение"));
