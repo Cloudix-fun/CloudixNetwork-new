@@ -19,7 +19,7 @@ public class CloudixCommand extends BaseCommand {
     @Override
     protected boolean executeCommand(CommandSender sender, String label, String[] args) {
         if (args.length == 0) {
-            U.msg(sender, T.system("&#B6DEA1&lCLOUDIX", "Важная админская команда >:3"));
+            U.msg(sender, T.system("&#25B5FA&lCLOUDIX", "Важная админская команда >:3"));
             return false;
         }
         return executeSubCommand(sender, label, args);
@@ -44,7 +44,7 @@ public class CloudixCommand extends BaseCommand {
     @SubCommandInfo(name = "updater", permission = "network.updater")
     public boolean updateSubCommand(CommandSender sender, String label, String[] args) throws Exception {
         if (args.length == 0) {
-            U.msg(sender, T.success("&#B6DEA1&lCLOUDIX", "Установка обновления прошла успешно, рестарт через 10 сек."));
+            U.msg(sender, T.success("&#25B5FA&lCLOUDIX", "Установка обновления прошла успешно, рестарт через 10 сек."));
             CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketMessage(U.colored(T.success("&#08FB36&lCLOUDIX", "Обновление! Рестарт через 10 сек."))));
 
             CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketUpdater());

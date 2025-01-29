@@ -4,25 +4,19 @@ import ru.hogeltbellai.CloudixNetwork.CNPluginSpigot;
 import ru.hogeltbellai.CloudixNetwork.impl.CPlayerManager;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class T {
 
     public static String system(String title, String text) {
-        return "" + title + "&#B5B5B5 ➡ &#FAEDCA" + text;
-    }
-
-    public static String warning(String title, String text) {
-        return system(title, "&#FE5D25" + text);
+        return "" + title + "&#B5B5B5 ➡ &f" + text;
     }
 
     public static String error(String title, String text) {
-        return system(title, "&#FE5D25" + text);
+        return system(title, "&#EF2B2B" + text);
     }
 
     public static String success(String title, String text) {
-        return system(title, "&#7EBC89" + text);
+        return system(title, "&f" + text);
     }
 
     public static String bantitle(String target) {

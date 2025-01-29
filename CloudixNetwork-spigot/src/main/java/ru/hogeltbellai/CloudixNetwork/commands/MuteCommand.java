@@ -20,19 +20,19 @@ public class MuteCommand extends BaseCommand {
     @Override
     protected boolean executeCommand(CommandSender sender, String label, String[] args) {
         if (args.length < 2) {
-            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Используйте - /" + label + " [игрок] [время] [причина]"));
+            U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Используйте - /" + label + " [игрок] [время] [причина]"));
             return true;
         }
 
         String target = args[0];
         if (target.length() > 20) {
-            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Некорректный ник"));
+            U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Некорректный ник"));
             return true;
         }
 
         long duration = CPlayerManager.parseDuration(args[1]);
         if (duration <= 0) {
-            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Некорректное время"));
+            U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Некорректное время"));
             return true;
         }
 
@@ -40,12 +40,12 @@ public class MuteCommand extends BaseCommand {
 
         Player targetPlayer = Bukkit.getPlayer(target);
         if (CPlayerManager.isMuted(target)) {
-            U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "Игрок уже замучен"));
+            U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Игрок уже замучен"));
             return true;
         }
 
         if (CPlayerManager.mutePlayer(target, duration, TimeUnit.MILLISECONDS, reason, sender.getName())) {
-            U.msg(sender, T.success("&#B6DEA1&lCLOUDIX", "Вы успешно замутили " + target));
+            U.msg(sender, T.success("&#25B5FA&lCLOUDIX", "Вы успешно замутили " + target));
             if (targetPlayer != null) {
                 U.bcast("");
                 U.bcast("&#AE1313&lНАКАЗАНИЕ&#AE1313:");
