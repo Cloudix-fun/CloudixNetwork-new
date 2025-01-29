@@ -42,8 +42,10 @@ public class BanCommand extends BaseCommand {
         if (!CPlayerManager.isBanned(target)) {
             if (CPlayerManager.banPlayer(target, duration, TimeUnit.MILLISECONDS, reason, sender.getName())) {
                 if (targetPlayer != null) {
+                    U.bcast("");
                     U.bcast("&#AE1313&lНАКАЗАНИЕ&#AE1313:");
-                    U.bcast("&f" + sender.getName() + " забанил игрока " + targetPlayer.getName() + " на " + CPlayerManager.getRemainingBanTime(targetPlayer.getName()) + " по причине: &c" + CPlayerManager.getBanReason(targetPlayer.getName()));
+                    U.bcast("&#FAEDCA" + sender.getName() + " забанил игрока " + targetPlayer.getName() + " на " + CPlayerManager.getRemainingBanTime(targetPlayer.getName()) + " по причине: &c" + CPlayerManager.getBanReason(targetPlayer.getName()));
+                    U.bcast("");
                     targetPlayer.kickPlayer(U.colored(T.bantitle(target)));
                 } else {
                     CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketKickPlayer(PacketKickPlayer.KickType.BAN, target, sender.getName(), reason));

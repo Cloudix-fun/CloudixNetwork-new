@@ -47,8 +47,10 @@ public class MuteCommand extends BaseCommand {
         if (CPlayerManager.mutePlayer(target, duration, TimeUnit.MILLISECONDS, reason, sender.getName())) {
             U.msg(sender, T.success("&#B6DEA1&lCLOUDIX", "Вы успешно замутили " + target));
             if (targetPlayer != null) {
+                U.bcast("");
                 U.bcast("&#AE1313&lНАКАЗАНИЕ&#AE1313:");
-                U.bcast("&f" + sender.getName() + " замутил игрока " + target + " на " + CPlayerManager.getRemainingMuteTime(target) + " по причине: &c" + CPlayerManager.getMuteReason(target));
+                U.bcast("&#FAEDCA" + sender.getName() + " замутил игрока " + target + " на " + CPlayerManager.getRemainingMuteTime(target) + " по причине: &c" + CPlayerManager.getMuteReason(target));
+                U.bcast("");
             } else {
                 CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketMutePlayer(target, sender.getName(), reason));
             }
