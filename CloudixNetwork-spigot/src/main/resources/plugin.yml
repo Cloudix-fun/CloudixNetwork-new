@@ -2,7 +2,7 @@ name: CloudixNetwork
 version: '${project.version}'
 main: ru.hogeltbellai.CloudixNetwork.CNPluginSpigot
 api-version: 1.16
-authors: [HogeltBellai]
+author: HogeltBellai
 
 commands:
   msg:

@@ -7,7 +7,7 @@ import ru.hogeltbellai.CloudixNetwork.api.commands.CommandInfo;
 import ru.hogeltbellai.CloudixNetwork.utils.T;
 import ru.hogeltbellai.CloudixNetwork.utils.U;
 
-@CommandInfo(name = "speed", permission = "network.admin")
+@CommandInfo(name = "speed", permission = "network.speed")
 public class SpeedCommand extends BaseCommand {
 
     @Override

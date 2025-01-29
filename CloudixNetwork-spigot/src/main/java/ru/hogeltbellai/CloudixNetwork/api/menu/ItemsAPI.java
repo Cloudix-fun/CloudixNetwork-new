@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -22,8 +23,7 @@ import ru.hogeltbellai.CloudixNetwork.CNPluginSpigot;
 import ru.hogeltbellai.CloudixNetwork.utils.U;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 public class ItemsAPI {
@@ -42,6 +42,16 @@ public class ItemsAPI {
 
         public Builder material(Material material) {
             itemsAPI.item.setType(material);
+            return this;
+        }
+
+        public Builder enchant(String enchantments) {
+            Arrays.stream(enchantments.split(","))
+                    .map(entry -> entry.split(":"))
+                    .filter(parts -> parts.length == 2)
+                    .map(parts -> new AbstractMap.SimpleEntry<>(Enchantment.getByName(parts[0].toUpperCase()), Integer.parseInt(parts[1])))
+                    .filter(entry -> entry.getKey() != null)
+                    .forEach(entry -> itemsAPI.item.addUnsafeEnchantment(entry.getKey(), entry.getValue()));
             return this;
         }
 
