@@ -45,7 +45,7 @@ public class StpCommand extends BaseCommand {
         return true;
     }
 
-    private void connectToServer(Player player, String serverName) {
+    public static void connectToServer(Player player, String serverName) {
         S.runAsync(() -> {
             try {
                 ByteArrayDataOutput out = ByteStreams.newDataOutput();
