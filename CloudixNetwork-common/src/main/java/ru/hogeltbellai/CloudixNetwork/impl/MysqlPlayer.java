@@ -17,7 +17,7 @@ public class MysqlPlayer {
     }
 
     public void addPlayer(String username) {
-        String sql = "INSERT INTO users (username, coins, exp, online) VALUES (?, 0, 0, 1)";
+        String sql = "INSERT INTO users (username, pix, exp, online) VALUES (?, 0, 0, 0)";
         database.executeUpdate(sql, username);
     }
 

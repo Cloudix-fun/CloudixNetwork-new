@@ -33,6 +33,10 @@ public class U {
         Bukkit.broadcastMessage(colored(msg));
     }
 
+    public static void title(Player player, String header, String footer, int in, int stay, int out) {
+        player.sendTitle(colored(header), colored(footer), in, stay, out);
+    }
+
     public static String colored(String str) {
         if (str == null)
             return null;
