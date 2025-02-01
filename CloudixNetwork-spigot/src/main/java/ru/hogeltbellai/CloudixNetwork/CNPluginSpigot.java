@@ -14,6 +14,7 @@ import ru.hogeltbellai.CloudixNetwork.impl.CPlayerManager;
 import ru.hogeltbellai.CloudixNetwork.impl.MysqlPlayer;
 import ru.hogeltbellai.CloudixNetwork.listener.PlayerListener;
 import ru.hogeltbellai.CloudixNetwork.mysql.Database;
+import ru.hogeltbellai.CloudixNetwork.placeholder.Placeholder;
 import ru.hogeltbellai.Core.connector.CoreConnector;
 
 @Getter
@@ -62,6 +63,8 @@ public final class CNPluginSpigot extends JavaPlugin {
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         CPlayerManager.startExpirationCheckTask();
+
+        new Placeholder().register();
     }
 
     @Override
