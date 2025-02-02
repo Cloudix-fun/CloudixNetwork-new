@@ -64,6 +64,8 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
         if (args.length > 0) {
             SubCommand subCommand = subCommands.get(args[0].toLowerCase());
             if (subCommand != null) {
+                if (subCommand.logic == null) return false;
+
                 if (subCommand.permission != null && !subCommand.permission.isEmpty() && sender instanceof org.bukkit.entity.Player &&
                         !sender.hasPermission(subCommand.permission)) {
                     U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "У вас нет прав"));

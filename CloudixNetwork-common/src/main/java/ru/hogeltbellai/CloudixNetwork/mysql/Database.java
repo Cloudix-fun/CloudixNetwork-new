@@ -142,28 +142,33 @@ public class Database {
         return queryCount;
     }
 
-    public void executeFile(String fileSql) {
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileSql)) {
-            if (inputStream == null) {
-                throw new IOException("Файл SQL ресурса не найден: " + fileSql);
+    public void executeFile(Class<?> clazz, String fileSql) {
+        InputStream inputStream = clazz.getResourceAsStream("/" + fileSql);
+
+        if (inputStream == null) {
+            System.err.println("Файл SQL не найден: " + fileSql + " в классе " + clazz.getName());
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+            StringBuilder sqlBuilder = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                sqlBuilder.append(line).append("\n");
             }
 
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
-                StringBuilder sqlBuilder = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    sqlBuilder.append(line).append("\n");
+            String sql = sqlBuilder.toString();
+            String[] queries = sql.split(";");
+
+            for (String query : queries) {
+                String trimmedQuery = query.trim();
+                if (!trimmedQuery.isEmpty()) {
+                    executeUpdate(trimmedQuery);
                 }
-                String sql = sqlBuilder.toString();
-                String[] queries = sql.split(";");
-                for (String query : queries) {
-                    String trimmedQuery = query.trim();
-                    if (!trimmedQuery.isEmpty()) {
-                        executeUpdate(trimmedQuery);
-                    }
-                }
-                System.out.println("SQL команды успешно выполнены из файла: " + fileSql);
             }
+
+            System.out.println("SQL команды успешно выполнены из файла: " + fileSql);
         } catch (IOException e) {
             System.err.println("Ошибка при чтении SQL файла: " + fileSql + ": " + e);
         }

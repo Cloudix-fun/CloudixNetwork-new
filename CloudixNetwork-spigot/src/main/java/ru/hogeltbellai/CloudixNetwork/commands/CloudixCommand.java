@@ -5,6 +5,7 @@ import ru.hogeltbellai.CloudixNetwork.CNPluginSpigot;
 import ru.hogeltbellai.CloudixNetwork.api.commands.BaseCommand;
 import ru.hogeltbellai.CloudixNetwork.api.commands.CommandInfo;
 import ru.hogeltbellai.CloudixNetwork.api.commands.SubCommandInfo;
+import ru.hogeltbellai.CloudixNetwork.impl.CPlayerManager;
 import ru.hogeltbellai.CloudixNetwork.utils.T;
 import ru.hogeltbellai.CloudixNetwork.utils.U;
 import ru.hogeltbellai.Core.packet.PacketMessage;
@@ -36,6 +37,35 @@ public class CloudixCommand extends BaseCommand {
             lines.add("&fЗапросов к БД: &f" + (CNPluginSpigot.core().getDatabase().getQueryCount()));
             lines.add("&fСоединение с Mina: &f" + (CNPluginSpigot.core().getCoreConnector().isConnected() ? "&aактивно" : "&cразорвано"));
             U.msg(sender, lines);
+            return true;
+        }
+        return false;
+    }
+
+    @SubCommandInfo(name = "pix", permission = "network.pix", playerTabComplete = {0})
+    public boolean pixSubCommand(CommandSender sender, String label, String[] args) {
+        if (args.length == 2) {
+            String target = args[0];
+            if (target.length() > 20) {
+                U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Некорректный ник"));
+                return true;
+            }
+
+            int pix = 0;
+            try {
+                pix = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Некорректное количество пиксов"));
+                return true;
+            }
+
+            if (pix <= 0) {
+                U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Некорректное количество пиксов"));
+                return true;
+            }
+
+            CNPluginSpigot.core().getDatabase().executeUpdate("UPDATE users SET pix = pix + ? WHERE username = ?", pix, target);
+            U.msg(sender, T.success("&#25B5FA&lCLOUDIX", "Пиксы успешно добавлены игроку " + target));
             return true;
         }
         return false;

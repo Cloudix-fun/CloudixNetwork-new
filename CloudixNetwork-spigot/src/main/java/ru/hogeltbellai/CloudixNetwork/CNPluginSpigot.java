@@ -38,7 +38,7 @@ public final class CNPluginSpigot extends JavaPlugin {
 
         Debug.setGlobalEnabled(getConfig().getBoolean("debug"));
 
-        database.executeFile("schema.sql");
+        database.executeFile(CNPluginSpigot.class, "schema.sql");
 
         coreConnector = new CoreConnector(getConfig().getBoolean("core.enabled"),
                 getConfig().getString("core.host"),

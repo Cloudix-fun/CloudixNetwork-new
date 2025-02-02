@@ -19,12 +19,16 @@ public class CPlayerChat {
 
     public static void localMessage(Player player, String formattedMessage, int chatRadius) {
         if(CPlayerManager.isMuted(player.getName())) {
-            player.sendMessage(T.mutetitle(player.getName()));
+            U.msg(player, T.error("&#AE1313&lНАКАЗАНИЕ", T.mutetitle(player.getName())));
             return;
         }
-        player.getWorld().getPlayers().stream()
-                .filter(target -> target != player && target.getLocation().distance(player.getLocation()) <= chatRadius)
-                .forEach(target -> target.sendMessage(formattedMessage));
+        for (Player recipient : Bukkit.getOnlinePlayers()) {
+            if (recipient.getWorld().equals(player.getWorld())) {
+                if (recipient.getLocation().distance(player.getLocation()) <= chatRadius) {
+                    recipient.sendMessage(formattedMessage);
+                }
+            }
+        }
     }
 
     public static String getPrefix(Player player) {
