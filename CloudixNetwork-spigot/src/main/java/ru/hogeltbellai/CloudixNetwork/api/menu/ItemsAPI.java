@@ -45,6 +45,15 @@ public class ItemsAPI {
             return this;
         }
 
+        public Builder amount(int amount) {
+            if (amount > 0) {
+                itemsAPI.item.setAmount(amount);
+            } else {
+                itemsAPI.item.setAmount(1);
+            }
+            return this;
+        }
+
         public Builder enchant(String enchantments) {
             Arrays.stream(enchantments.split(","))
                     .map(entry -> entry.split(":"))
@@ -76,6 +85,16 @@ public class ItemsAPI {
             assert meta != null;
             meta.addItemFlags(flags);
             itemsAPI.item.setItemMeta(meta);
+            return this;
+        }
+
+        public Builder customModelData(int modelData) {
+            if (modelData != 0) {
+                ItemMeta meta = itemsAPI.item.getItemMeta();
+                assert meta != null;
+                meta.setCustomModelData(modelData);
+                itemsAPI.item.setItemMeta(meta);
+            }
             return this;
         }
 

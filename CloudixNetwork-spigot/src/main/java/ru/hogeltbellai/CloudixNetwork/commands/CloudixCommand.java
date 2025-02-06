@@ -75,7 +75,7 @@ public class CloudixCommand extends BaseCommand {
     public boolean updateSubCommand(CommandSender sender, String label, String[] args) throws Exception {
         if (args.length == 0) {
             U.msg(sender, T.success("&#25B5FA&lCLOUDIX", "Установка обновления прошла успешно, рестарт через 10 сек."));
-            CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketMessage(U.colored(T.success("&#08FB36&lCLOUDIX", "Обновление! Рестарт через 10 сек."))));
+            CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketMessage(U.colored(T.success("&#25B5FA&lCLOUDIX", "Обновление! Рестарт через 10 сек."))));
 
             CNPluginSpigot.core().getCoreConnector().sendPacket(new PacketUpdater());
             return true;

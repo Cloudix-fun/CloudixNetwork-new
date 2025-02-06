@@ -172,8 +172,8 @@ public class CPlayerManager {
             formattedDuration.append(seconds).append("с");
         }
 
-        if (seconds == 0) {
-            return "сейчас";
+        if (formattedDuration.length() == 0) {
+            return "0";
         }
 
         return formattedDuration.toString().trim();

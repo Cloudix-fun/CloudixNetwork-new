@@ -1,9 +1,6 @@
 package ru.hogeltbellai.CloudixNetwork.api.commands;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
+import org.bukkit.command.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.hogeltbellai.CloudixNetwork.utils.T;
 import ru.hogeltbellai.CloudixNetwork.utils.U;
@@ -68,12 +65,19 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
 
                 if (subCommand.permission != null && !subCommand.permission.isEmpty() && sender instanceof org.bukkit.entity.Player &&
                         !sender.hasPermission(subCommand.permission)) {
-                    U.msg(sender, T.error("&#B6DEA1&lCLOUDIX", "У вас нет прав"));
+                    U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "У вас нет прав"));
                     return true;
                 }
 
-                if (subCommand.forPlayer && !(sender instanceof org.bukkit.entity.Player)) {
-                    return true;
+                if (forPlayer) {
+                    if (!(sender instanceof org.bukkit.entity.Player)) {
+                        sender.sendMessage("Эта команда доступна только для игроков.");
+                        return true;
+                    }
+                } else {
+                    if (!(sender instanceof ConsoleCommandSender)) {
+                        return true;
+                    }
                 }
 
                 return subCommand.logic.execute(sender, label, Arrays.copyOfRange(args, 1, args.length));
@@ -89,8 +93,15 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
             return true;
         }
 
-        if (forPlayer && !(sender instanceof org.bukkit.entity.Player)) {
-            return true;
+        if (forPlayer) {
+            if (!(sender instanceof org.bukkit.entity.Player)) {
+                sender.sendMessage("Эта команда доступна только для игроков.");
+                return true;
+            }
+        } else {
+            if (!(sender instanceof ConsoleCommandSender)) {
+                return true;
+            }
         }
 
         if (executeSubCommand(sender, label, args)) {
