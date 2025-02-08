@@ -14,7 +14,7 @@ import ru.hogeltbellai.Core.packet.PacketMutePlayer;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-@CommandInfo(name = "mute", permission = "network.mute", playerTabComplete = {0})
+@CommandInfo(name = "mute", permission = "network.mute", forPlayer = true, playerTabComplete = {0})
 public class MuteCommand extends BaseCommand {
 
     @Override
