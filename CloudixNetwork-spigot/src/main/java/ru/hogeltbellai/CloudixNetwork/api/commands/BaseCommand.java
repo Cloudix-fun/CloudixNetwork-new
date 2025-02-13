@@ -10,25 +10,42 @@ import java.util.*;
 
 public abstract class BaseCommand implements CommandExecutor, TabExecutor {
     private final String name;
+    private final List<String> aliases;
     private final String permission;
     private final boolean forPlayer;
+    private final boolean forConsole;
+    private final boolean forAll;
     private final Map<String, SubCommand> subCommands = new HashMap<>();
-    private static final Set<String> registeredCommands = new HashSet<>();
 
     public BaseCommand() {
         CommandInfo info = getClass().getAnnotation(CommandInfo.class);
         if (info == null) {
-            throw new IllegalStateException("Класс с annotation не найден: " + getClass().getName());
+            throw new IllegalStateException("Класс с аннотацией не найден: " + getClass().getName());
         }
         this.name = info.name();
+        this.aliases = Arrays.asList(info.aliases());
         this.permission = info.permission();
-        this.forPlayer = info.forPlayer() != Boolean.valueOf(null) && info.forPlayer();
+        this.forPlayer = info.forPlayer();
+        this.forConsole = info.forConsole();
+        this.forAll = info.forAll();
         registerSubCommands();
     }
 
     public BaseCommand register(JavaPlugin plugin) {
-        plugin.getCommand(name).setExecutor(this);
-        registeredCommands.add(name.toLowerCase());
+        PluginCommand pluginCommand = plugin.getCommand(name);
+        if (pluginCommand == null) {
+            throw new IllegalStateException("Команда не найдена в plugin.yml: " + name);
+        }
+
+        pluginCommand.setExecutor(this);
+
+        for (String alias : aliases) {
+            PluginCommand aliasCommand = plugin.getCommand(alias);
+            if (aliasCommand != null) {
+                aliasCommand.setExecutor(this);
+            }
+        }
+
         return this;
     }
 
@@ -41,6 +58,8 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
                 subCommands.put(subCommandInfo.name().toLowerCase(), new SubCommand(
                         subCommandInfo.permission(),
                         subCommandInfo.forPlayer(),
+                        subCommandInfo.forConsole(),
+                        subCommandInfo.forAll(),
                         subCommandInfo.playerTabComplete(),
                         (sender, label, args) -> {
                             try {
@@ -69,15 +88,18 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
                     return true;
                 }
 
-                if (forPlayer) {
-                    if (!(sender instanceof org.bukkit.entity.Player)) {
-                        sender.sendMessage("Эта команда доступна только для игроков.");
-                        return true;
-                    }
-                } else {
-                    if (!(sender instanceof ConsoleCommandSender)) {
-                        return true;
-                    }
+                if (subCommand.forPlayer && !(sender instanceof org.bukkit.entity.Player)) {
+                    U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Эта команда доступна только для игроков"));
+                    return true;
+                }
+
+                if (subCommand.forConsole && !(sender instanceof ConsoleCommandSender)) {
+                    U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Эта команда доступна только для консоли"));
+                    return true;
+                }
+
+                if (subCommand.forAll && !(sender instanceof org.bukkit.entity.Player || sender instanceof ConsoleCommandSender)) {
+                    return true;
                 }
 
                 return subCommand.logic.execute(sender, label, Arrays.copyOfRange(args, 1, args.length));
@@ -93,15 +115,16 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
             return true;
         }
 
-        if (forPlayer) {
-            if (!(sender instanceof org.bukkit.entity.Player)) {
-                sender.sendMessage("Эта команда доступна только для игроков.");
-                return true;
-            }
-        } else {
-            if (!(sender instanceof ConsoleCommandSender)) {
-                return true;
-            }
+        if (forPlayer && !(sender instanceof org.bukkit.entity.Player)) {
+            U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Эта команда доступна только для игроков"));
+            return true;
+        }
+        if (forConsole && !(sender instanceof ConsoleCommandSender)) {
+            U.msg(sender, T.error("&#25B5FA&lCLOUDIX", "Эта команда доступна только для консоли"));
+            return true;
+        }
+        if (forAll && !(sender instanceof org.bukkit.entity.Player || sender instanceof ConsoleCommandSender)) {
+            return true;
         }
 
         if (executeSubCommand(sender, label, args)) {
@@ -159,12 +182,16 @@ public abstract class BaseCommand implements CommandExecutor, TabExecutor {
     public static class SubCommand {
         private final String permission;
         private final boolean forPlayer;
+        private final boolean forConsole;
+        private final boolean forAll;
         private final int[] playerTabComplete;
         private final SubCommandLogic logic;
 
-        public SubCommand(String permission, boolean forPlayer, int[] playerTabComplete, SubCommandLogic logic) {
+        public SubCommand(String permission, boolean forPlayer, boolean forConsole, boolean forAll, int[] playerTabComplete, SubCommandLogic logic) {
             this.permission = permission;
             this.forPlayer = forPlayer;
+            this.forConsole = forConsole;
+            this.forAll = forAll;
             this.playerTabComplete = playerTabComplete;
             this.logic = logic;
         }

@@ -11,7 +11,12 @@ import ru.hogeltbellai.Core.packet.PacketAnswer;
 
 import java.util.Arrays;
 
-@CommandInfo(name = "msg", forPlayer = true, playerTabComplete = {0})
+@CommandInfo(
+        name = "msg",
+        aliases = {"tell", "message"},
+        forPlayer = true,
+        playerTabComplete = {0}
+)
 public class MsgCommand extends BaseCommand {
 
     @Override

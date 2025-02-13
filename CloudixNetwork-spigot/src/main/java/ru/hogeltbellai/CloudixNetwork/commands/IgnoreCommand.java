@@ -8,7 +8,11 @@ import ru.hogeltbellai.CloudixNetwork.api.commands.CommandInfo;
 import ru.hogeltbellai.CloudixNetwork.utils.T;
 import ru.hogeltbellai.CloudixNetwork.utils.U;
 
-@CommandInfo(name = "ignore", forPlayer = true, playerTabComplete = {0})
+@CommandInfo(
+        name = "ignore",
+        forPlayer = true,
+        playerTabComplete = {0}
+)
 public class IgnoreCommand extends BaseCommand {
     private static final String IGNORE_ALL_KEY = "ignore_all";
 

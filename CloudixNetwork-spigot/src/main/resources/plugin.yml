@@ -6,16 +6,10 @@ author: HogeltBellai
 
 commands:
   msg:
-    aliases: [tell, message, лс]
   ban:
-    aliases: [бан]
   mute:
-    aliases: [мут]
   unban:
-    aliases: [разбан]
   ignore:
-    aliases: [игнор]
   speed:
-    aliases: [скорость]
   stp:
   cloudix:

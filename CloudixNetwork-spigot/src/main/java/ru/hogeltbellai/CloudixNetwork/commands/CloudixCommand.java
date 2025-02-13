@@ -5,7 +5,6 @@ import ru.hogeltbellai.CloudixNetwork.CNPluginSpigot;
 import ru.hogeltbellai.CloudixNetwork.api.commands.BaseCommand;
 import ru.hogeltbellai.CloudixNetwork.api.commands.CommandInfo;
 import ru.hogeltbellai.CloudixNetwork.api.commands.SubCommandInfo;
-import ru.hogeltbellai.CloudixNetwork.impl.CPlayerManager;
 import ru.hogeltbellai.CloudixNetwork.utils.T;
 import ru.hogeltbellai.CloudixNetwork.utils.U;
 import ru.hogeltbellai.Core.packet.PacketMessage;
@@ -14,7 +13,11 @@ import ru.hogeltbellai.Core.packet.PacketUpdater;
 import java.util.ArrayList;
 import java.util.List;
 
-@CommandInfo(name = "cloudix", permission = "network.admin")
+@CommandInfo(
+        name = "cloudix",
+        permission = "network.admin",
+        forAll = true
+)
 public class CloudixCommand extends BaseCommand {
 
     @Override
@@ -26,7 +29,10 @@ public class CloudixCommand extends BaseCommand {
         return executeSubCommand(sender, label, args);
     }
 
-    @SubCommandInfo(name = "stats", permission = "network.stats")
+    @SubCommandInfo(
+            name = "stats",
+            permission = "network.stats"
+    )
     public boolean statsSubCommand(CommandSender sender, String label, String[] args) {
         if (args.length == 0) {
             Runtime runtime = Runtime.getRuntime();
@@ -42,7 +48,11 @@ public class CloudixCommand extends BaseCommand {
         return false;
     }
 
-    @SubCommandInfo(name = "pix", permission = "network.pix", playerTabComplete = {0})
+    @SubCommandInfo(
+            name = "pix",
+            permission = "network.pix",
+            playerTabComplete = {0}
+            )
     public boolean pixSubCommand(CommandSender sender, String label, String[] args) {
         if (args.length == 2) {
             String target = args[0];

@@ -15,7 +15,12 @@ import ru.hogeltbellai.CloudixNetwork.utils.U;
 import ru.hogeltbellai.Core.packet.PacketGetPlayerInfo;
 import ru.hogeltbellai.Core.packet.PacketPlayerInfo;
 
-@CommandInfo(name = "stp", permission = "network.stp", forPlayer = true)
+@CommandInfo(
+        name = "stp",
+        aliases = {"serverteleport", "servertp"},
+        permission = "network.stp",
+        forPlayer = true
+)
 public class StpCommand extends BaseCommand {
 
     @Override

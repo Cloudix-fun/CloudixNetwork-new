@@ -14,7 +14,13 @@ import ru.hogeltbellai.Core.packet.PacketKickPlayer;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-@CommandInfo(name = "ban", permission = "network.ban", forPlayer = true, playerTabComplete = {0})
+@CommandInfo(
+        name = "ban",
+        aliases = {"tempban"},
+        permission = "network.ban",
+        forAll = true,
+        playerTabComplete = {0}
+)
 public class BanCommand extends BaseCommand {
 
     @Override

@@ -11,5 +11,7 @@ public @interface SubCommandInfo {
     String name();
     String permission() default "";
     boolean forPlayer() default false;
+    boolean forConsole() default false;
+    boolean forAll() default false;
     int[] playerTabComplete() default {};
 }
