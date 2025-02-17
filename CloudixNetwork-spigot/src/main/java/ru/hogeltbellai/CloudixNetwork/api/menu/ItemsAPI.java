@@ -64,6 +64,15 @@ public class ItemsAPI {
             return this;
         }
 
+        public Builder enchant(Map<Enchantment, Integer> enchantments) {
+            enchantments.forEach((enchantment, level) -> {
+                if (enchantment != null && level > 0) {
+                    itemsAPI.item.addUnsafeEnchantment(enchantment, level);
+                }
+            });
+            return this;
+        }
+
         public Builder displayName(String displayName) {
             ItemMeta meta = itemsAPI.item.getItemMeta();
             assert meta != null;
