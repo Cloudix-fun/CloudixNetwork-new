@@ -12,5 +12,5 @@ public class PacketHandler {
     public void handlePacketMutePlayer(IoSession session, PacketMutePlayer packet) {}
     public void handlePacketUpdater(IoSession session, PacketUpdater packet) throws Exception {}
     public void handlePacketGetPlayerInfo(IoSession session, PacketGetPlayerInfo packet) throws Exception {}
-    public void handlePacketPlayerInfo(IoSession session, PacketPlayerInfo packet) throws Exception {}
+    public void handlePacketPlayerInfo(IoSession session, PacketPlayerInfo packet) {}
 }
