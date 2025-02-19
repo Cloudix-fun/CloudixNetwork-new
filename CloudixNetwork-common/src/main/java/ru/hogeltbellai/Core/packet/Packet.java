@@ -21,6 +21,7 @@ public abstract class Packet {
         registerPacket(6, PacketUpdater.class);
         registerPacket(7, PacketGetPlayerInfo.class);
         registerPacket(8, PacketPlayerInfo.class);
+        registerPacket(9, PacketAccountList.class);
     }
 
     private final int id;

@@ -3,7 +3,6 @@ package ru.hogeltbellai.CloudixNetwork;
 import lombok.Getter;
 import net.md_5.bungee.api.plugin.Plugin;
 import ru.hogeltbellai.CloudixNetwork.api.config.Configuration;
-import ru.hogeltbellai.CloudixNetwork.commands.SeenCommand;
 import ru.hogeltbellai.CloudixNetwork.core.BungeePacketHandler;
 import ru.hogeltbellai.CloudixNetwork.impl.MysqlPlayer;
 import ru.hogeltbellai.CloudixNetwork.mysql.Database;
@@ -36,8 +35,6 @@ public final class CNPluginBungee extends Plugin {
         coreNetwork.connect();
 
         mysqlPlayer = new MysqlPlayer(database);
-
-        getProxy().getPluginManager().registerCommand(this, new SeenCommand());
     }
 
     @Override

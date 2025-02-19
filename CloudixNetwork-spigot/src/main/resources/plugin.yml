@@ -12,4 +12,5 @@ commands:
   ignore:
   speed:
   stp:
+  seen:
   cloudix:

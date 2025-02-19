@@ -56,6 +56,7 @@ public final class CNPluginSpigot extends JavaPlugin {
         new IgnoreCommand().register(this);
         new SpeedCommand().register(this);
         new StpCommand().register(this);
+        new SeenCommand().register(this);
 
         getServer().getPluginManager().registerEvents(new ItemsAPI.InteractionItemListener(), this);
         getServer().getPluginManager().registerEvents(new MenuAPI(), this);

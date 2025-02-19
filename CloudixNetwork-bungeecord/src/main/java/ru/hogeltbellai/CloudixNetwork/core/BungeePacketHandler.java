@@ -12,6 +12,7 @@ import ru.hogeltbellai.Core.PacketHandler;
 import ru.hogeltbellai.Core.connector.CoreNetwork;
 import ru.hogeltbellai.Core.packet.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -102,5 +103,47 @@ public class BungeePacketHandler extends PacketHandler {
         }
         String serverName = player.getServer() != null ? player.getServer().getInfo().getName() : null;
         CoreNetwork.sendPacketResponse(session, packet, new PacketPlayerInfo(packet.playerName, serverName));
+    }
+
+    @Override
+    public void handlePacketAccountList(IoSession session, PacketAccountList packet) {
+        String senderName = packet.sender;
+
+        AuthPlugin authPlugin = AuthPlugin.instance();
+        AccountDatabase accountDatabase = authPlugin.getAccountDatabase();
+
+        CompletableFuture<Account> accountFuture = accountDatabase.getAccountFromName(senderName);
+
+        accountFuture.thenAccept(account -> {
+            if (account == null || account.getLastIpAddress() == null) {
+                CoreNetwork.sendPacketResponse(session, packet, new PacketAccountList(senderName, null));
+                return;
+            }
+
+            String playerIp = account.getLastIpAddress();
+
+            CompletableFuture<Collection<Account>> allAccountsFuture = accountDatabase.getAllAccounts();
+
+            allAccountsFuture.thenAccept(accounts -> {
+                List<String> accountsList = accounts.stream()
+                        .filter(acc -> playerIp.equals(acc.getLastIpAddress()))
+                        .map(Account::getName)
+                        .collect(Collectors.toList());
+
+                if (accountsList.isEmpty()) {
+                    CoreNetwork.sendPacketResponse(session, packet, new PacketAccountList(senderName, List.of(senderName)));
+                } else {
+                    CoreNetwork.sendPacketResponse(session, packet, new PacketAccountList(senderName, accountsList));
+                }
+            }).exceptionally(ex -> {
+                CoreNetwork.sendPacketResponse(session, packet, new PacketAccountList(senderName, null));
+                ex.printStackTrace();
+                return null;
+            });
+        }).exceptionally(ex -> {
+            CoreNetwork.sendPacketResponse(session, packet, new PacketAccountList(senderName, null));
+            ex.printStackTrace();
+            return null;
+        });
     }
 }

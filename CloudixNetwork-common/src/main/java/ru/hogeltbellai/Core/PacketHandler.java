@@ -13,4 +13,5 @@ public class PacketHandler {
     public void handlePacketUpdater(IoSession session, PacketUpdater packet) throws Exception {}
     public void handlePacketGetPlayerInfo(IoSession session, PacketGetPlayerInfo packet) throws Exception {}
     public void handlePacketPlayerInfo(IoSession session, PacketPlayerInfo packet) {}
+    public void handlePacketAccountList(IoSession session, PacketAccountList packet) {}
 }
