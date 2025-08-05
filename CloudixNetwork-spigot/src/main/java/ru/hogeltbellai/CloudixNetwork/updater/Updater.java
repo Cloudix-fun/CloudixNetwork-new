@@ -42,10 +42,10 @@ public class Updater {
         }
 
         if (!newPluginFile.exists()) {
-            return "Ошибка: не удалось скачать новый плагин.";
+            return "Ошибка: не удалось скачать новый плагин";
         }
 
-        Debug.CORE.info("Обновление установлено!");
+        Debug.CORE.info("Обновление установлено");
 
         return "Обновление завершено успешно: " + newPluginFile.getName();
     }
